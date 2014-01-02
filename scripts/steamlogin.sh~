@@ -1,0 +1,9 @@
+#!/bin/bash
+DEFAULT = 'main'
+MODIFIED = 'wheezy-backports main contrib non-free'
+SED = 's/'+$DEFAULT+'/'+$MODIFIED+'/g'
+sed -i SED /etc/apt/sources.list
+sudo apt-get install steam
+wget 'https://launchpad.net/~thor27-gmail/+archive/steam-desktop/+files/steam-login_7_all.deb'
+sudo dpkg -i 'steam-login_7_all.deb'
+rm 'steam-login_7_all.deb'

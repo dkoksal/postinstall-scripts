@@ -1,0 +1,18 @@
+#!/bin/sh
+# Importing variables and functions from prompt.sh
+if [[ -f ../prompt.sh ]]; then # TODO remove prompt.sh. Currently it has only one poorly written function to check internet connection.
+    source '../prompt.sh'
+else
+echo 'Error: Failed to locate prompt.sh'
+    exit 1
+fi
+if prompt "Clean up unused packages?" then
+	echo "Cleaning up all currently unused packages"
+	apt-get autoremove
+	apt-get autoclean
+	echo "Updating package resources"
+	apt-get update
+	apt-get dist-upgrade
+	clear scr
+	echo "Cleanup complete."
+fi
