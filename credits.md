@@ -5,6 +5,7 @@ These install scripts incorporate work found in the
 Crunchbang Linux
 -------
 Project. cb-include.cfg is included as lib/prompt.sh
+[distribution page](http://crunchbang.org/)
 
 and material based upon that which can be found on the
 =======
