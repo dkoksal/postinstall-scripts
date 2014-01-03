@@ -1,0 +1,115 @@
+# UBUNTU-CONKY
+# A comprehensive conky script, configudark dark dark red for use on
+# Ubuntu / Debian Gnome, without the need for any external scripts.
+#
+# Based on conky-jc and the default .conkyrc.
+# INCLUDES:
+# - tail of /var/log/messages 
+# - netstat connections to your computer
+#
+# -- Pengo (conky@pengo.us)
+#
+
+# Create own window instead of using desktop (requidark dark dark red in nautilus)
+own_window yes
+own_window_hints undecorated,below,skip_taskbar
+background no
+
+# Use double buffering (dark dark dark reduces flicker, may not work for everyone)
+double_buffer yes
+
+# fiddle with window
+use_spacer yes
+use_xft yes
+
+# Update interval in seconds
+update_interval 3.0
+
+# Minimum size of text area
+minimum_size 400 5
+
+# Draw shades?
+draw_shades yes
+
+# Text stuff
+draw_outline no # amplifies text if yes
+draw_borders no
+
+uppercase no # set to yes if you want all text to be in uppercase
+
+# Stippled borders?
+stippled_borders 8
+
+# border margins
+#border_margins 4
+
+# border width
+border_width 1
+
+# Default colors and also border colors, grey90 == #e5e5e5
+default_color white
+default_shade_color black
+default_outline_color white
+
+own_window_colour brown
+own_window_transparent yes
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+gap_x 10
+gap_y 10
+
+# stuff after 'TEXT' will be formatted on screen
+
+override_utf8_locale no
+xftfont Terminus:size=8
+xftalpha 0.8
+
+TEXT
+
+${color slate grey}${time %a, } ${color }${time %e %B %G}
+${color slate grey}${time %Z,    }${color }${time %H:%M:%S}
+${color dark green}UpTime: ${color }$uptime
+${color dark green}Kern:${color }$kernel
+${color dark green}Usage (Avg):${color dark green}              Ghz ${color lightgrey}${cpu cpu0}% ${alignr}${color dark green}${cpubar cpu0 5,80}
+${color dark green}Usage (Core 1):${color dark green}          Ghz ${color lightgrey}${cpu cpu1}% ${alignr}${color dark green}${cpubar cpu1 5,80}
+${color dark green}Usage (Core 2):${color dark green}          Ghz ${color lightgrey}${cpu cpu2}% ${alignr}${color dark green}${cpubar cpu2 5,80}
+${color dark green}Average
+${cpugraph cpu0 42AE4A eeeeee}
+${color dark green}Core 1 $alignr Core 2
+${color dark green}${cpugraph cpu1 25,120 42AE4A eeeeee} ${color dark green} $alignr${color dark green}${cpugraph cpu2 25,120 42AE4A eeeeee}
+${color dark green}CPU Temp:${color lightgrey} ${hwmon 1 temp 1}
+${color dark green}Core 1 Temp: ${color lightgrey}${execi 8 sensors | grep -A 1 'Core0' | cut -c13-16 | sed '/^$/d'} C ${color dark green}Core 2 Temp: ${color lightgrey}${execi 8 sensors | grep -A 1 'Core1' | cut -c13-16 | sed '/^$/d'} C
+${color dark green}Load: ${color }$loadavg
+${color dark green}Processes: ${color }$processes  
+${color dark red}Running:   ${color }$running_processes
+
+${color slate grey}Highest CPU:
+${color dark orange} ${top name 1}${top_mem cpu 1}	${color dark orange} ${top name 2}${top cpu 2} ${color dark orange}	${top name 3}${top cpu 3}
+${color orange} ${top name 4}${top cpu 4}	${color orange} ${top name 5}${top cpu 5}	${color orange} ${top name 6}${top cpu 6}
+${color lightgrey} ${top name 7}${top cpu 7}	${color lightgrey} ${top name 8}${top cpu 8}	${color lightgrey} ${top name 9}${top cpu 9}
+${color slate grey}Highest MEM:
+${color dark orange} ${top_mem name 1}${top_mem mem 1}	${color dark orange} ${top_mem name 2}${top_mem mem 2}	${color dark orange} ${top_mem name 3}${top_mem mem 3}
+${color orange} ${top_mem name 4}${top_mem mem 4}	${color orange} ${top_mem name 5}${top_mem mem 5}	${color orange} ${top_mem name 6}${top_mem mem 6}
+${color lightgrey} ${top_mem name 7}${top_mem mem 7}	${color lightgrey} ${top_mem name 8}${top_mem mem 8}	${color lightgrey} ${top_mem name 9}${top_mem mem 9}
+
+${color slate grey}MEM:  ${color } $memperc% $mem/$memmax	${color slate grey}SWAP: ${color }$swapperc% $swap/$swapmax
+${membar 3,100}                ${swapbar 3,100}
+
+${color slate grey}ROOT:    ${color }${fs_free /}/${fs_size /}	${color slate grey}HOME:  ${color }${fs_free /home}/${fs_size /home}
+${fs_bar 3,100 /}          ${fs_bar 3,100 /home}
+${color slate grey}NET: 
+${color}IP: ${color }${addrs wlan0}
+${color}Up: ${color }${upspeed wlan0} k/s                     ${color}Down: ${color }${downspeed wlan0} k/s
+${upspeedgraph wlan0 20,130 000000 ffffff} 	${downspeedgraph wlan0 20,130 000000 ffffff}
+${color purple}NMAP 1:
+${color slate grey}${execi 100 nmap -sn 192.168.1.0/24 | awk -F " |/" '/report/ {print $5;}'}
+${color purple}NMAP 10:
+${color slate grey}${execi 100 nmap -sn 192.168.10.0/24 | awk -F " |/" '/report/ {print $5;}'}
+
+

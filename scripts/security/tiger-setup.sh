@@ -1,5 +1,5 @@
 #!/bin/sh
-if prompt "install Tiger intrusion detection suite?" then
+#if prompt "install Tiger intrusion detection suite?" then
 	echo "Updating package resources"
 	apt-get update
 	apt-get dist-upgrade
@@ -7,4 +7,4 @@ if prompt "install Tiger intrusion detection suite?" then
 	apt-get install tiger
 	clear scr
 	echo "Tiger setup complete"
-fi
+#fi

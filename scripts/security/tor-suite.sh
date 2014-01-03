@@ -1,6 +1,6 @@
 #!/bin/sh
-if prompt "Install and configure tor browser suite?" then
-	if prompt "Use tor project debian repository?" then
+#if prompt "Install and configure tor browser suite?" then
+#	if prompt "Use tor project debian repository?" then
 		echo "deb http://deb.torproject.org/torproject.org wheezy main" >> /etc/apt/sources.list
 		echo "[*] Installing the keys...."
 		gpg --keyserver keys.gnupg.net --recv 886DDD89
@@ -11,8 +11,8 @@ if prompt "Install and configure tor browser suite?" then
 		echo "[*] installing tor project keyring"
 		apt-get install deb.torproject.org-keyring
 		clear scr
-	fi
-	if prompt "Install TOR suite?" then
+#	fi
+#	if prompt "Install TOR suite?" then
 		echo "[*] Installing TOR"
 		apt-get install tor
 		echo "Ready!!"
@@ -28,13 +28,11 @@ if prompt "Install and configure tor browser suite?" then
 		service privoxy restart
 		clear scr
 		echo "Tor torarm, and privoxy have been installed successfully."
-	fi
-	if prompt "Install TorChat" then
+#	fi
+#	if prompt "Install TorChat" then
 		echo "[*] Installing TorChat"
-		wget https://github.com/downloads/prof7bit/TorChat/torchat-0.9.9.553.deb
-		dpkg -i "torchat-0.9.9.553.deb"
-		apt-get install -f
+                sudo apt-get install torchat
 		clear scr
 		echo "Torchat has been installed successfully."
-	fi
-fi
+#	fi
+#fi
