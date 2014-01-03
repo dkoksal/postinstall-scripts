@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=conky
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=conky Desktop overlay
+Name=conky Desktop overlay
+Comment[en_US]=conky
+Comment=conky

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=tilda
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=tilda embedded desktop terminal
+Name=tilda embedded desktop terminal
+Comment[en_US]=Embedded termina
+Comment=Embedded termina

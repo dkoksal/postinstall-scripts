@@ -8,4 +8,5 @@ echo "[*] Install embedded desktop terminal with tilda?"
 apt-get install tilda
 echo "[*] Installing default conky configuration..."
 cp ./config_0 ~/.tilda/config-0
+cp ./*.desktop ./.config/autostart
 echo "[*] Tilda and default configuration installed."
