@@ -1,4 +1,7 @@
 #!/bin/sh
+echo "[*] Install embedded terminal with tilda?"
+apt-get install tilda
+cp ./config/config_0 ~/.tilda/config-0
 echo "[*] Install terminal monitoring tools(htop and ntop)?"
 apt-get install htop ntop
 echo "[*] installed htop and ntop."
