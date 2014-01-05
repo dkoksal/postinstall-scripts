@@ -1,5 +1,2 @@
 #! /bin/sh
-chroot .OS/lighttpd
-service lighttpd restart
-exit
-
+chroot .OS/lighttpd /home/start
