@@ -1,4 +1,4 @@
 #! /bin/sh
-rsync -raz public_html .OS/lighttpd/var/www
-cp -r public_html/* .OS/lighttpd/var/www
+rsync -raz /home/*/public_html /home/*/.OS/lighttpd/var/www
+cp -r /home/*/public_html/* /home/*/.OS/lighttpd/var/www
 

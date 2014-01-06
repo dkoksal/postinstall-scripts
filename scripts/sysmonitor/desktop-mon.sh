@@ -7,5 +7,5 @@ echo "[*] Conky & default configuration installed."
 echo "[*] Install embedded desktop terminal with tilda?"
 apt-get install tilda
 echo "[*] Installing default conky configuration..."
-cp ./config/*.desktop ./.config/autostart
+cp /home/*/postinstall-scripts/scripts/sysmonitor/config/*.desktop ./.config/autostart/*.desktop
 echo "[*] Tilda and default configuration installed."

@@ -1,2 +1,2 @@
 #! /bin/sh
-chroot .OS/lighttpd /home/start
+chroot /home/*/.OS/lighttpd /home/start
