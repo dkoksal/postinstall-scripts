@@ -7,20 +7,20 @@
 		gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
 		echo "Ready!!"
 		echo "[*] Updating Repositories...."
-		apt-get update
+		sudo apt-get update
 		echo "[*] installing tor project keyring"
-		apt-get install deb.torproject.org-keyring
+		sudo apt-get install deb.torproject.org-keyring
 		clear scr
 #	fi
 #	if prompt "Install TOR suite?" then
 		echo "[*] Installing TOR"
-		apt-get install tor
+		sudo apt-get install tor
 		echo "Ready!!"
 		echo "[*] Installing TOR Terminal Monitor"
-		apt-get install tor-arm
+		sudo apt-get install tor-arm
 		echo "Ready!!"
 		echo "[*] Installing Privoxy"
-		apt-get install privoxy
+		sudo apt-get install privoxy
 		echo "[*] Configuring privoxy"
 		echo "forward-socks5 / 127.0.0.1:9050 ." >> /etc/privoxy/config
 		echo "Ready!!"
