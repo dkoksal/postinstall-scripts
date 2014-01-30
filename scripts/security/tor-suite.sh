@@ -24,6 +24,7 @@
 		echo "[*] Configuring privoxy"
 		echo "forward-socks5 / 127.0.0.1:9050 ." >> /etc/privoxy/config
 		echo "Ready!!"
+		sudo apt-get install obfsproxy
 		service tor restart
 		service privoxy restart
 		clear scr
