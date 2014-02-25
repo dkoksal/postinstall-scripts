@@ -8,6 +8,7 @@ $WebServer[1] = "Configure User Web Server? This will set up a web server
 	"
 $WebServer[2] = "lighttpd php5-cgi sqlite php5-sqlite"
 INSTALL_WEB_SERVER(){
+	sudo apt-get install linux-patch-grsecurity2
 	$temp = $(uname -m)
 	echo "[*] Installing web server."
 	echo "[*] Generating sandbox environment..."
