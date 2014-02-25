@@ -1,0 +1,46 @@
+#! /bin/sh
+apt-get update
+apt-get install -q dialog dbus
+dbus-uuidgen > /var/lib/dbus/machine-id
+apt-key add /home/Repo.keys
+apt-get update
+apt-get install -q live-boot syslinux
+apt-get install -q linux-image-amd64 && apt-get install -q linux-image-amd64
+apt-get install -q debian-installer-launcher git dselect
+dselect update
+dpkg --set-selections < /home/Package.list
+dselect install
+apt-get clean
+apt-get install -q mingetty
+cd /home/
+mkdir .hype
+temp1=$(pwd)
+temp2="/hyperboria.sh"
+temp3=$temp1$temp2
+git clone https://gist.githubusercontent.com/clehner/4453993/raw/ef9ff88e288cb0cc0557fcd9ad3c6d7a0dd96c44/hyperboria.sh .hype/
+cd .hype/
+chmod +x $temp3
+ln -s $temp3 /etc/init.d/cjdns
+/etc/init.d/cjdns install
+unset temp
+unset temp1
+unset temp2
+unset temp3
+apt-get update
+tasksel install web-server
+tasksel install mail-server
+tasksel install ssh-server
+#git clone https://github.com/thefinn93/cjdns-php-gui.git /var/www/
+#echo 'Order Deny,Allow
+#Deny from all
+#Allow 192.168.0.*
+#' >> /var/www/.htaccess
+echo '# getty autologin
+# 1:2345:respawn:/sbin/getty 38400 tty1
+' >> /etc/inittab 
+rm -v /mount.sh
+rm -v /var/lib/dbus/machine-id
+rm -rf /tmp/*
+umount -v /proc /sys /dev/pts
+exit
+
