@@ -12,10 +12,10 @@ CLEANUP_ALL_UNNECESSARY_APPS(){
 #	" >> ~/,usercron
 	crontab -u ~/.usercron
 	echo "Cleaning up all currently unused packages"
-	apt-get autoremove
-	apt-get autoclean
+	sudo apt-get autoremove
+	sudo apt-get autoclean
 	echo "Updating package resources"
-	apt-get update
-	apt-get dist-upgrade
+	sudo apt-get update
+	sudo apt-get dist-upgrade
 	echo "Cleanup complete."
 }

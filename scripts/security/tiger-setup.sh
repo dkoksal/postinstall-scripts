@@ -8,9 +8,8 @@ $TigerDetection[1] = "Install TIGER advanced system state monitor?
 $TigerDetection[2] = "tiger"
 INSTALL_TIGER_SYSTEM_MONITOR(){
 	echo "Updating package resources"
-	apt-get update
-	apt-get dist-upgrade
+	sudo apt-get update && sudo apt-get dist-upgrade
 	echo "Preparing to install Tiger intrusion detection framework"
-	apt-get install tiger
+	sudo apt-get install tiger
 	echo "Tiger setup complete"
 }
