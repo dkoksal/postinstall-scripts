@@ -23,10 +23,10 @@ INSTALL_WEB_SERVER(){
 	mkdir ~/public_html/
 	if($temp=="x86_64")
 		mount –bind ~/public_html/ ~/.WebServ/x86_64/var/www
-		sudo ln -s ~/public_html/ ~/,WebServ/x86_64/var/www/
+		sudo ln -s ~/public_html/ ~/.WebServ/x86_64/var/www/
 	else
 		mount –bind ~/public_html/ ~/.WebServ/i386/var/www
-		sudo ln -s ~/public_html/ ~/,WebServ/i386/var/www/
+		sudo ln -s ~/public_html/ ~/.WebServ/i386/var/www/
 	fi	
 	echo "[*] Re-Generating user crontab file"
 	cp ~/postinstall-scripts/scripts/servers/.startpws.sh ~/.startpws.sh
