@@ -6,10 +6,13 @@
 # added to a fork later. This is intended to work on any apt-based distribution.
 
 source prompt.sh
+source scripts/development/game-dev.sh
+source scripts/development/gnome-dev.sh
 source scripts/sysmonitor/desktop-mon.sh
 source scripts/sysmonitor/term-mon.sh
 source scripts/security/browser-setup.sh
 source scripts/security/iptables.sh
+source scripts/security/harden-setup.sh
 source scripts/security/tor-suite.sh
 source scripts/security/ids-setup.sh
 source scripts/security/baseline-cleanup.sh
@@ -18,6 +21,9 @@ source scripts/servers/web-serv.sh
 source scripts/servers/meshnet.sh
 
 if(INITIAL_PROMPT())
+	if(PROMPT($Hardener[1]))
+		INSTALL_HARDEN_KERNEL_PATCHES()
+	fi
 	if(PROMPT($EmbeddedDesktop[1]))
 		INSTALL_EMBEDDED_DESKTOP_INFO()
 	fi
@@ -41,6 +47,12 @@ if(INITIAL_PROMPT())
 	fi
 	if(PROMPT($MeshRouter[1]))
 		INSTALL_MESH_NETWORKING()
+	fi
+	if(PROMPT($Gtk3Development[1]))
+		INSTALL_GNOME3_DEVELOPMENT()
+	fi
+	if(PROMPT($GameDevelopment[1]))
+		INSTALL_GAME_DEVELOPMENT_PACKAGES()
 	fi
 	if(PROMPT($FirstCleanup[1]))
 		CLEANUP_ALL_UNNECESSARY_APPS()

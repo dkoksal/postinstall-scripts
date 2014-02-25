@@ -5,7 +5,7 @@ PROMPT(){
 	*=====================================================*
 	Would you like to install the: ")
 	echo($1)
-	echo("	*=====================================================*")
+	echo(	"*=====================================================*")
 	$t=-1
 	read response
 	while($t==-1)
@@ -49,7 +49,7 @@ INITIAL_PROMPT(){
 			$t=1
 		elif("$response"=="N"||"$response"=="n"||"$response"=="no"||"$response"=="No"||"$response"=="NO")
 			$t=0
-			echo("#! /bin/sh
+			echo("
 			\$runonce=0
 			") >> .postinst.conf
 		else
