@@ -1,20 +1,31 @@
 #!/bin/sh
-echo "[*] Install web server?"
-mkdir -p /home/*/.OS/lighttpd
-debootstrap wheezy /home/*/.OS/lighttpd http://http.debian.net/debian
-chroot /home/*/.OS/lighttpd apt-get install lighttpd php5-cgi
-mkdir /home/*/public_html
-cp /home/*/postinstall-scripts/scripts/servers/.public_html.sh /home/*/public_html.sh
-cp /home/*/postinstall-scripts/scripts/servers/.boot_server.sh /home/*/boot_server.sh
-cp /home/*/postinstall-scripts/scripts/servers/config/start /home/*/.OS/lighttpd/home/start
-chroot /home/*/.OS/lighttpd/
-chmod +x /home/*/.public_html.sh
-chmod +x /home/*/.boot_server.sh
-echo "
-* * * * * 	/home/*/.public_html.sh
-@reboot	 /home/*/.public_html.sh
-@reboot	 /home/*/.boot_server.sh
-
-" >> /var/spool/cron/crontabs/root
-cp /home/*/postinstall-scripts/scripts/servers/config/lighttpd.conf .OS/lighttpd/etc/lighttpd.conf
-echo "[*] Web server installed."
+$WebServer[0] = "Web Server"
+$WebServer[1] = "Configure User Web Server? This will set up a web server
+	in a sandboxed environment underneath your username, as well as
+	scripts to automatically configure it. Your personal web site is 
+	located at /home/USER/public_html/ and will be available instantly.
+	(container lighttpd, php, and SQLite)
+	"
+$WebServer[2] = "lighttpd php5-cgi sqlite php5-sqlite"
+INSTALL_WEB_SERVER(){
+	echo "[*] Installing web server."
+	echo "[*] Generating sandbox environment..."
+	cp ../remastery/* ~/,WebServ/*
+	cd .WebServ/
+	./config86.sh
+	cd ~
+	echo "[*] Generating user web page folder..."
+	mkdir ~/public_html/
+	mount –bind ~/public_html/ ~/.WebServ/i386/var/www
+	sudo ln -s ~/public_html/ ~/,WebServ/i386/var/www/
+	echo "[*] Re-Generating user crontab file"
+	cp ~/postinstall-scripts/scripts/servers/.startpws.sh ~/.startpws.sh
+	chmod +x ~/.startpws.sh
+	crontab -l > ~/.usercron
+	echo "
+	@reboot	 root ~/.startpws.sh
+	" >> ~/.usercron
+	crontab -u ~/,usercron
+	cp ~/postinstall-scripts/scripts/servers/config/lighttpd.conf ~/.WebServ/i386/lighttpd/etc/lighttpd.conf
+	echo "[*] Web server installed."
+}

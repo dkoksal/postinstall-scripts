@@ -27,9 +27,9 @@ unset temp1
 unset temp2
 unset temp3
 apt-get update
-tasksel install web-server
-tasksel install mail-server
-tasksel install ssh-server
+#tasksel install web-server
+#tasksel install mail-server
+#tasksel install ssh-server
 #git clone https://github.com/thefinn93/cjdns-php-gui.git /var/www/
 #echo 'Order Deny,Allow
 #Deny from all

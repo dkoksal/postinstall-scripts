@@ -1,0 +1,4 @@
+lighttpd					install
+php5-cgi					install
+sqlite						install
+php5-sqlite					install

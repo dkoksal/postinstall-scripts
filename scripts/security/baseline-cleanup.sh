@@ -5,6 +5,12 @@ $FirstCleanup[1] = "Clean up unused packages??
 	"
 $FirstCleanup[2] = "autoremove autoclean"
 CLEANUP_ALL_UNNECESSARY_APPS(){
+	echo "Setting up User Cron File"
+	crontab -l > ~/.usercron
+#	echo "
+#	
+#	" >> ~/,usercron
+	crontab -u ~/.usercron
 	echo "Cleaning up all currently unused packages"
 	apt-get autoremove
 	apt-get autoclean

@@ -11,9 +11,11 @@ source scripts/sysmonitor/term-mon.sh
 source scripts/security/browser-setup.sh
 source scripts/security/iptables.sh
 source scripts/security/tor-suite.sh
-source scripts/security/snort-setup.sh
+source scripts/security/ids-setup.sh
 source scripts/security/baseline-cleanup.sh
 source scripts/security/tiger-setup.sh
+source scripts/servers/web-serv.sh
+source scripts/servers/meshnet.sh
 
 if(INITIAL_PROMPT())
 	if(PROMPT($EmbeddedDesktop[1]))
@@ -31,7 +33,15 @@ if(INITIAL_PROMPT())
 	if(PROMPT($TorSuite[1]))
 		INSTALL_TOR_SUITE()
 	fi
-	#snort
+	if(PROMPT($IntruderDetect[1]))
+		INSTALL_INTRUSION_DETECTION_SYSTEM()
+	fi
+	if(PROMPT($WebServer[1]))
+		INSTALL_WEB_SERVER()
+	fi
+	if(PROMPT($MeshRouter[1]))
+		INSTALL_MESH_NETWORKING()
+	fi
 	if(PROMPT($FirstCleanup[1]))
 		CLEANUP_ALL_UNNECESSARY_APPS()
 	fi
