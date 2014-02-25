@@ -49,5 +49,7 @@ if(INITIAL_PROMPT())
 		INSTALL_TIGER_SYSTEM_MONITOR()
 	fi
 fi
-
+echo "
+\$runonce=1
+" >> prompt.sh
 exit 0

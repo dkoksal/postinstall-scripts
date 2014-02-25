@@ -43,4 +43,5 @@ INSTALL_WEB_SERVER(){
 		cp ~/postinstall-scripts/scripts/servers/config/lighttpd.conf ~/.WebServ/i386/lighttpd/etc/lighttpd.conf
 	fi	
 	echo "[*] Web server installed."
+	unset $temp
 }

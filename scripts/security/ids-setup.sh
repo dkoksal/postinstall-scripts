@@ -1,3 +1,4 @@
+#! /bin/sh
 $IntruderDetect[0] = "Intrusion Detection System"
 $IntruderDetect[1] = "Install advanced intrusion detection tools?
 	(suricata)
