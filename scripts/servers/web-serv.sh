@@ -8,16 +8,26 @@ $WebServer[1] = "Configure User Web Server? This will set up a web server
 	"
 $WebServer[2] = "lighttpd php5-cgi sqlite php5-sqlite"
 INSTALL_WEB_SERVER(){
+	$temp = $(uname -m)
 	echo "[*] Installing web server."
 	echo "[*] Generating sandbox environment..."
 	cp ../remastery/* ~/,WebServ/*
 	cd .WebServ/
-	./config86.sh
+	if($temp=="x86_64")
+		./config64.sh	
+	else
+		./config86.sh	
+	fi
 	cd ~
 	echo "[*] Generating user web page folder..."
 	mkdir ~/public_html/
-	mount –bind ~/public_html/ ~/.WebServ/i386/var/www
-	sudo ln -s ~/public_html/ ~/,WebServ/i386/var/www/
+	if($temp=="x86_64")
+		mount –bind ~/public_html/ ~/.WebServ/x86_64/var/www
+		sudo ln -s ~/public_html/ ~/,WebServ/x86_64/var/www/
+	else
+		mount –bind ~/public_html/ ~/.WebServ/i386/var/www
+		sudo ln -s ~/public_html/ ~/,WebServ/i386/var/www/
+	fi	
 	echo "[*] Re-Generating user crontab file"
 	cp ~/postinstall-scripts/scripts/servers/.startpws.sh ~/.startpws.sh
 	chmod +x ~/.startpws.sh
@@ -26,6 +36,11 @@ INSTALL_WEB_SERVER(){
 	@reboot	 root ~/.startpws.sh
 	" >> ~/.usercron
 	crontab -u ~/,usercron
-	cp ~/postinstall-scripts/scripts/servers/config/lighttpd.conf ~/.WebServ/i386/lighttpd/etc/lighttpd.conf
+	cd ~
+	if($temp=="x86_64")
+		cp ~/postinstall-scripts/scripts/servers/config/lighttpd.conf ~/.WebServ/x86_64/lighttpd/etc/lighttpd.conf
+	else
+		cp ~/postinstall-scripts/scripts/servers/config/lighttpd.conf ~/.WebServ/i386/lighttpd/etc/lighttpd.conf
+	fi	
 	echo "[*] Web server installed."
 }

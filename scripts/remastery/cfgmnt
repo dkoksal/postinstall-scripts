@@ -12,20 +12,20 @@ dpkg --set-selections < /home/Package.list
 dselect install
 apt-get clean
 apt-get install -q mingetty
-cd /home/
-mkdir .hype
-temp1=$(pwd)
-temp2="/hyperboria.sh"
-temp3=$temp1$temp2
-git clone https://gist.githubusercontent.com/clehner/4453993/raw/ef9ff88e288cb0cc0557fcd9ad3c6d7a0dd96c44/hyperboria.sh .hype/
-cd .hype/
-chmod +x $temp3
-ln -s $temp3 /etc/init.d/cjdns
-/etc/init.d/cjdns install
-unset temp
-unset temp1
-unset temp2
-unset temp3
+#cd /home/
+#mkdir .hype
+#temp1=$(pwd)
+#temp2="/hyperboria.sh"
+#temp3=$temp1$temp2
+#git clone https://gist.githubusercontent.com/clehner/4453993/raw/ef9ff88e288cb0cc0557fcd9ad3c6d7a0dd96c44/hyperboria.sh .hype/
+#cd .hype/
+#chmod +x $temp3
+#ln -s $temp3 /etc/init.d/cjdns
+#/etc/init.d/cjdns install
+#unset temp
+#unset temp1
+#unset temp2
+#unset temp3
 apt-get update
 #tasksel install web-server
 #tasksel install mail-server
