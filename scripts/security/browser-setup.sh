@@ -1,8 +1,13 @@
 #!/bin/sh
-apt-get update && apt-get dist-upgrade
-echo "[*] Install browser security plugins for iceweasel?"
-apt-get install xul-ext-noscript xul-ext-requestpolicy xul-ext-firecookie xul-ext-useragentswitcher xul-ext-adblock-plus xul-ext-refcontrol
-wget https://www.eff.org/files/https-everywhere-latest.xpi
-iceweasel --install-app https-everywhere-latest.xpi
-echo "[*] Your browser is more secure, anyway..."
-#xul-ext-toggle-proxy
+$BrowserSecurity[0] = "Browser Security"
+$BrowserSecurity[1] = "Install Additional Browser Security Software?
+	(xul-ext-noscript xul-ext-requestpolicy xul-ext-firecookie xul-ext-useragentswitcher xul-ext-adblock-plus xul-ext-refcontrol xul-ext-https-everywhere xul-ext-foxyproxy-standard)
+	"
+$BrowserSecurity[2] = "xul-ext-noscript xul-ext-requestpolicy xul-ext-firecookie xul-ext-useragentswitcher xul-ext-adblock-plus xul-ext-refcontrol xul-ext-https-everywhere xul-ext-foxyproxy-standard"
+INSTALL_BROWSER_SECURITY_PLUGINS(){
+	apt-get update && apt-get dist-upgrade
+	echo "[*] Install browser security plugins for iceweasel?"
+	apt-get install xul-ext-noscript xul-ext-requestpolicy xul-ext-firecookie xul-ext-useragentswitcher xul-ext-adblock-plus xul-ext-refcontrol xul-ext-https-everywhere xul-ext-foxyproxy-standard
+	echo "[*] Your browser is more secure, anyway..."
+}
+

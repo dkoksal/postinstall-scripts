@@ -5,8 +5,23 @@ PROMPT(){
 	*=====================================================*
 	Would you like to install the: ")
 	echo($1)
-	echo("*=====================================================*")
-	
+	echo("	*=====================================================*")
+	$t=-1
+	read response
+	while($t==-1)
+		if("$response"=="Y"||"$response"=="y"||"$response"=="yes"||"$response"=="Yes"||"$response"=="YES")
+			$t=1
+		elif("$response"=="N"||"$response"=="n"||"$response"=="no"||"$response"=="No"||"$response"=="NO")
+			$t=0
+#			echo("#! /bin/sh
+#			\$runonce=0
+#			") >> .postinst.conf
+		else
+			$t=-1
+			read response
+		fi
+	done
+	return $t
 }
 INITIAL_PROMPT(){
 	echo("
@@ -27,4 +42,20 @@ INITIAL_PROMPT(){
 	which is not yet within the Debian ecosystem.
 	Do you wish to continue?
 	")
+	$t=-1
+	read response
+	while($t==-1)
+		if("$response"=="Y"||"$response"=="y"||"$response"=="yes"||"$response"=="Yes"||"$response"=="YES")
+			$t=1
+		elif("$response"=="N"||"$response"=="n"||"$response"=="no"||"$response"=="No"||"$response"=="NO")
+			$t=0
+			echo("#! /bin/sh
+			\$runonce=0
+			") >> .postinst.conf
+		else
+			$t=-1
+			read response
+		fi
+	done
+	return $t
 }

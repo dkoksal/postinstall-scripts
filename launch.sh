@@ -5,50 +5,39 @@
 # Pieces of the code which could be considered useful to cb-welcome will be
 # added to a fork later. This is intended to work on any apt-based distribution.
 
-createFlag() {
-    mkdir -p "/home/$USER/.config/dpis"
-    touch "/home/$USER/.config/dpis/dpis-welcome"
-}
+source prompt.sh
+source scripts/sysmonitor/desktop-mon.sh
+source scripts/sysmonitor/term-mon.sh
+source scripts/security/browser-setup.sh
+source scripts/security/iptables.sh
+source scripts/security/tor-suite.sh
+source scripts/security/snort-setup.sh
+source scripts/security/baseline-cleanup.sh
+source scripts/security/tiger-setup.sh
 
-runInTerminal() {
-    x-terminal-emulator -e 'dpis'
-    exit 0
-}
-
-# First run
-if [[ $1 = '--firstrun' ]]; then
-if [[ -d /live/overlay || -e /home/$USER/.config/dpis/dpis-welcome || ! $(groups) =~ ( |^)sudo( |$) ]]; then
-exit 1
-    fi
-runInTerminal
-fi
-
-# Open in terminal
-if [[ $1 = '--open' ]]; then
-runInTerminal
-fi
-
-createFlag
-
-if ! [[ $(groups) =~ ( |^)sudo( |$) ]]; then
-echo 'Error: must be a member of the sudo group to run this script.' # TODO 'root' user is not a member of the sudo group. Is it meant to restrict root from executing this script?
-  exit 1
-fi
-
-LIBDIR='scripts'
-if [[ -f scripts/lib/prompt.sh ]]; then # TODO remove cb-include.cfg. Currently it has only one poorly written function to check internet connection.
-    source 'scripts/lib/prompt.sh'
-else
-echo 'Error: Failed to locate prompt.sh'
-    exit 1
-fi
-
-# Import prompt
-if [[ -f ${LIBDIR}/lib/prompt ]]; then
-        source "${LIBDIR}/lib/prompt"
-else
-        echo 'Error: Failed to locate prompt'
-        exit 1
+if(INITIAL_PROMPT())
+	if(PROMPT($EmbeddedDesktop[1]))
+		INSTALL_EMBEDDED_DESKTOP_INFO()
+	fi
+	if(PROMPT($TerminalMonitoring[1]))
+		INSTALL_TERMINAL_MONITORING()
+	fi
+	if(PROMPT($BrowserSecurity[1]))
+		INSTALL_BROWSER_SECURITY_PLUGINS()
+	fi
+	if(PROMPT($FireWall[1]))
+		INSTALL_FIREWALL_CONFIG_TOOLS()
+	fi
+	if(PROMPT($TorSuite[1]))
+		INSTALL_TOR_SUITE()
+	fi
+	#snort
+	if(PROMPT($FirstCleanup[1]))
+		CLEANUP_ALL_UNNECESSARY_APPS()
+	fi
+	if(PROMPT($TigerDetection[1]))
+		INSTALL_TIGER_SYSTEM_MONITOR()
+	fi
 fi
 
 exit 0
