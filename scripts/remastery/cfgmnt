@@ -5,7 +5,7 @@ dbus-uuidgen > /var/lib/dbus/machine-id
 apt-key add /home/Repo.keys
 apt-get update
 apt-get install -q live-boot syslinux
-apt-get install -q linux-image-amd64 && apt-get install -q linux-image-amd64
+apt-get install -q linux-image-amd64 && apt-get install -q linux-image-amd64 linux-patch-grsecurity2 gradm2
 apt-get install -q debian-installer-launcher git dselect
 dselect update
 dpkg --set-selections < /home/Package.list
