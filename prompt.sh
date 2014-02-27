@@ -1,30 +1,30 @@
 #! /bin/sh
 source .postinst.conf
 PROMPT(){
-	echo("
+	echo '
 	*=====================================================*
-	Would you like to install the: ")
-	echo($1)
-	echo(	"*=====================================================*")
-	$t=-1
-	read response
-	while($t==-1)
-		if("$response"=="Y"||"$response"=="y"||"$response"=="yes"||"$response"=="Yes"||"$response"=="YES")
-			$t=1
-		elif("$response"=="N"||"$response"=="n"||"$response"=="no"||"$response"=="No"||"$response"=="NO")
-			$t=0
-#			echo("#! /bin/sh
+	Would you like to install the: ' 
+	echo $1 
+	echo 	'*=====================================================*' 
+	t=false
+	read -p response
+	if [$response=='Y' -o $response=='y' -o $response=='yes' -o $response=='Yes' -o $response=='YES'] 
+	then
+		$t=true
+	elif [$response=='N' -o $response=='n' -o $response=='no' -o $response=='No' -o $response=='NO'] 
+	then
+		$t=false
+#			echo '#! /bin/sh
 #			\$runonce=0
-#			") >> .postinst.conf
-		else
-			$t=-1
-			read response
-		fi
-	done
+#			'  >> .postinst.conf
+	else
+		$t=false
+		read response
+	fi
 	return $t
 }
 INITIAL_PROMPT(){
-	echo("
+	echo '
 	*=====================================================*
 	*   This is a set of post-install scripts which are   *
 	*  designed to preconfigure some useful tools related *
@@ -32,8 +32,8 @@ INITIAL_PROMPT(){
 	*     in a way that works out of the box for all.     *
 	*=====================================================*
 	*=====================================================*
-	")
-	echo("
+	' 
+	echo '
 	if you are reading this:
 	You already have a working system, these scripts are recommended, 
 	but purely optional. They will help you with server administration,
@@ -41,21 +41,22 @@ INITIAL_PROMPT(){
 	software, advanced system administration software, and some software
 	which is not yet within the Debian ecosystem.
 	Do you wish to continue?
-	")
-	$t=-1
-	read response
-	while($t==-1)
-		if("$response"=="Y"||"$response"=="y"||"$response"=="yes"||"$response"=="Yes"||"$response"=="YES")
-			$t=1
-		elif("$response"=="N"||"$response"=="n"||"$response"=="no"||"$response"=="No"||"$response"=="NO")
-			$t=0
-			echo("
-			\$runonce=0
-			") >> .postinst.conf
-		else
-			$t=-1
-			read response
-		fi
-	done
+	' 
+	t=false
+	read -p response
+	if [$response=='Y' -o $response=='y' -o $response=='yes' -o $response=='Yes' -o $response=='YES'] 
+	then
+		$t=true
+	elif [$response=='N' -o $response=='n' -o $response=='no' -o $response=='No' -o $response=='NO'] 
+	then
+		$t=false
+		echo '
+		\$runonce=1
+		'  >> .postinst.conf
+	else
+		$t=false
+		read response
+	fi
 	return $t
 }
+
