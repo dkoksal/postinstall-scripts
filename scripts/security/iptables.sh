@@ -56,7 +56,7 @@ INSTALL_FIREWALL_CONFIG_TOOLS(){
 	    mod limit limit 3/min limit-burst 10 LOG log-prefix "INPUT-rejected: " log-level debug;
 	    REJECT;
 	}
-	' >> ~/,ferm.conf
+	' >> ~/.ferm.conf
 	sudo ferm ~/.ferm.conf
 	echo "[*] firestarter installed and initial configuration generated"
 }

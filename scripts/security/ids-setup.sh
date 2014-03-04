@@ -31,7 +31,7 @@ INSTALL_INTRUSION_DETECTION_SYSTEM(){
 	chmod +x ~/.suricata/updateIDS.sh
 	crontab -l > ~/.usercron
 	echo "
-	@daily	 root ~/.suricata/updateIDS.sh
+	@reboot	 root ~/.suricata/updateIDS.sh
 	" >> ~/.usercron
-	crontab -u ~/,usercron
+	crontab -u $(whoami) ~/.usercron
 }

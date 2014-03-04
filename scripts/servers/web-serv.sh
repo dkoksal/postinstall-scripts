@@ -8,11 +8,11 @@ $WebServer[1] = "Configure User Web Server? This will set up a web server
 	"
 $WebServer[2] = "lighttpd php5-cgi sqlite php5-sqlite"
 INSTALL_WEB_SERVER(){
-	sudo apt-get install linux-patch-grsecurity2
 	$temp = $(uname -m)
 	echo "[*] Installing web server."
 	echo "[*] Generating sandbox environment..."
-	cp ~/postinstall-scripts/scripts/remastery/* ~/,WebServ/*
+	mkdir .WebServ/
+	cp ~/postinstall-scripts/scripts/servers/* .WebServ/*
 	cd .WebServ/
 	if($temp=="x86_64")
 		./config64.sh	
@@ -22,7 +22,7 @@ INSTALL_WEB_SERVER(){
 	cd ~
 	echo "[*] Generating user web page folder..."
 	mkdir ~/public_html/
-	if($temp=="x86_64")
+	if($temp=="x86_64"
 		sudo mount –bind ~/public_html/ ~/.WebServ/x86_64/var/www
 		sudo ln -s ~/public_html/ ~/.WebServ/x86_64/var/www/
 	else
@@ -30,13 +30,17 @@ INSTALL_WEB_SERVER(){
 		sudo ln -s ~/public_html/ ~/.WebServ/i386/var/www/
 	fi	
 	echo "[*] Re-Generating user crontab file"
-	cp ~/postinstall-scripts/scripts/servers/.startpws.sh ~/.startpws.sh
-	chmod +x ~/.startpws.sh
+	echo '#! /bin/sh
+	chroot .WebServ/i386/ mount.sh
+	mount –bind ~/public_html/ ~/.WebServ/i386/var/www
+	chroot .WebServ/i386/ service lighttpd restart
+	' >> ~/.WebServ/startpws.sh
+	chmod +x ~/.WebServ/startpws.sh
 	crontab -l > ~/.usercron
 	echo "
 	@reboot	 root ~/.startpws.sh
 	" >> ~/.usercron
-	crontab -u ~/,usercron
+	crontab -u $(whoami) ~/.usercron
 	cd ~
 	if($temp=="x86_64")
 		sudo cp ~/postinstall-scripts/scripts/servers/config/lighttpd.conf ~/.WebServ/x86_64/lighttpd/etc/lighttpd.conf

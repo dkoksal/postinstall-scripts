@@ -7,4 +7,9 @@ AntiVirus[2]="clamav"
 INSTALL_HARDEN_KERNEL_PATCHES(){
 	echo "[*] Installing and configuring antivirus via Clamwin"
 	sudo apt-get install clamav
+	crontab -l > ~/.usercron
+	echo "
+	@daily	 root freshclam
+	" >> ~/.usercron
+	crontab -u $(whoami) ~/.usercron
 }

@@ -8,10 +8,10 @@ PROMPT(){
 	t=false
 	echo -e $msg
 	read -p yesno
-	if [ ["$yesno" -eq 'Y'] -o ["$yesno" -eq 'y'] -o ["$yesno" -eq 'yes'] -o ["$yesno" -eq 'Yes'] -o ["$yesno" -eq 'YES'] ] 
+	if [ [ "$yesno"='Y' ] -o [ "$yesno"='y' ] -o [ "$yesno"='yes' ] -o [ "$yesno"='Yes' ] -o [ "$yesno"='YES' ] ] 
 	then
 		$t=true
-	elif [ ["$yesno" -eq 'N'] -o ["$yesno" -eq 'n'] -o ["$yesno" -eq 'no'] -o ["$yesno" -eq 'No'] -o ["$yesno" -eq 'NO'] ]
+	elif [ [ "$yesno"='N' ] -o [ "$yesno"='n' ] -o [ "$yesno"='no' ] -o [ "$yesno"='No' ] -o [ "$yesno"='NO' ] ]
 	then
 		t=false
 #			echo '#! /bin/sh
@@ -44,10 +44,10 @@ INITIAL_PROMPT(){
 	t=false
 	echo -e $msg
 	read -p yesno
-	if ["$yesno" -eq 'Y' -o "$yesno" -eq 'y' -o "$yesno" -eq 'yes' -o "$yesno" -eq 'Yes' -o "$yesno" -eq 'YES']
+	if [ [ "$yesno"='Y' ] -o [ "$yesno"='y' ] -o [ "$yesno"='yes' ] -o [ "$yesno"='Yes' ] -o [ "$yesno"='YES' ] ] 
 	then
 		$t=true
-	elif ["$yesno" -eq 'N' -o "$yesno" -eq 'n' -o "$yesno" -eq 'no' -o "$yesno" -eq 'No' -o "$yesno" -eq 'NO']
+	elif [ [ "$yesno"='N' ] -o [ "$yesno"='n' ] -o [ "$yesno"='no' ] -o [ "$yesno"='No' ] -o [ "$yesno"='NO' ] ]
 	then
 		t=false
 		echo '
