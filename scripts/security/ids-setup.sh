@@ -8,22 +8,30 @@ INSTALL_INTRUSION_DETECTION_SYSTEM(){
 	echo "[*] Installing and configuring Suricata Next Generation IDS"
 	sudo apt-get install suricata oinkmaster
 	echo "[*] Updating Emerging Threats Database"
-	cd /etc/suricata/
-	sudo wget https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
-	sudo tar -xvzf emerging.rules.tar.gz
-	sudo ln -s /etc/suricata/rules/reference.config /etc/suricata/reference.config
-	sudo ln -s /etc/suricata/UbuntuPPA-configs/classification.config /etc/suricata/classification.config
-	sudo cp /etc/suricata/UbuntuPPA-configs/suricata-ppa-1.4-6ubuntu6.yaml /etc/suricata/suricata.yaml
-	echo "
+	mkdir .suricata
+	echo '
+	#! /bin/sh
+	wget https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
+	tar -xvzf emerging.rules.tar.gz
+	sudo rm /etc/suricata/reference.config
+	sudo rm /etc/suricata/classification.config
+	sudo rm /etc/suricata/rules/
+	sudo rm /etc/suricata/suricata.yaml
+
+	sudo ln -s ~/.suricata/rules/reference.config /etc/suricata/reference.config
+	sudo ln -s ~/.suricata/rules/classification.config /etc/suricata/classification.config
+	sudo ln -s ~/.suricata/rules/ /etc/suricata/rules
+	sudo ln -s ~/.suricata/rules/suricata.yaml /etc/suricata/suricata.yaml
+	sudo oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules/
+	' >> ~/.suricata/updateIDS.sh
+	sudo echo "
 	url = https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
 	" >> /etc/oinkmaster.conf
-	sudo oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules
 	echo "[*] Configuring Automatic Updates to the IDS"
-	cp ~/postinstall-scripts/scripts/servers/.updateids.sh ~/.updateids.sh
-	chmod +x ~/.updateids.sh
+	chmod +x ~/.suricata/updateIDS.sh
 	crontab -l > ~/.usercron
 	echo "
-	@daily	 root ~/.updateids.sh
+	@daily	 root ~/.suricata/updateIDS.sh
 	" >> ~/.usercron
 	crontab -u ~/,usercron
 }

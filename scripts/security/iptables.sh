@@ -27,7 +27,7 @@ INSTALL_FIREWALL_CONFIG_TOOLS(){
 			proto tcp dport auth ACCEPT;
 		
 			# uncomment the following line to run an HTTPS service
-			proto tcp dport https ACCEPT;
+			# proto tcp dport https ACCEPT;
 
 			# the rest is dropped by the above policy
 	    }
