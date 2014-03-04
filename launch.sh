@@ -23,8 +23,8 @@ INITIAL_PROMPT
 echo $t
 if [ t ]
 then
-#	PROMPT ${Hardener[1]}
-	if [ PROMPT ]
+#	PROMPT 
+	if [ [ PROMPT ${Hardener[1]} ] ]
 	then
 		INSTALL_HARDEN_KERNEL_PATCHES
 	fi

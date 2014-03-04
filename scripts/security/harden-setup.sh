@@ -5,6 +5,6 @@ Hardener[1]="Install kernel patches for system hardening?
 	"
 Hardener[2]="grsecurity"
 INSTALL_HARDEN_KERNEL_PATCHES(){
-	echo "[*] Installing and configuring Suricata Next Generation IDS"
+	echo "[*] Installing and configuring security patches for Linux"
 	sudo apt-get install linux-patch-grsecurity2 gradm2
 }

@@ -1,61 +1,61 @@
 #! /bin/sh
 source .postinst.conf
 PROMPT(){
-	echo '
-	*=====================================================*
-	Would you like to install the: ' 
-	echo $1 
-	echo 	'*=====================================================*' 
+	msg="
+	*====================================================================*\n
+	 Would you like to install the: $1 \n
+	*====================================================================*\n"
 	t=false
-	read -p response
-	if [$response=='Y' -o $response=='y' -o $response=='yes' -o $response=='Yes' -o $response=='YES'] 
+	echo -e $msg
+	read -p yesno
+	if [ ["$yesno" -eq 'Y'] -o ["$yesno" -eq 'y'] -o ["$yesno" -eq 'yes'] -o ["$yesno" -eq 'Yes'] -o ["$yesno" -eq 'YES'] ] 
 	then
 		$t=true
-	elif [$response=='N' -o $response=='n' -o $response=='no' -o $response=='No' -o $response=='NO'] 
+	elif [ ["$yesno" -eq 'N'] -o ["$yesno" -eq 'n'] -o ["$yesno" -eq 'no'] -o ["$yesno" -eq 'No'] -o ["$yesno" -eq 'NO'] ]
 	then
-		$t=false
+		t=false
 #			echo '#! /bin/sh
 #			\$runonce=0
 #			'  >> .postinst.conf
 	else
-		$t=false
-		read response
+		t=false
+		read yesno
 	fi
+	unset msg
 	return $t
 }
 INITIAL_PROMPT(){
-	echo '
-	*=====================================================*
-	*   This is a set of post-install scripts which are   *
-	*  designed to preconfigure some useful tools related *
-	*   to content creation, Free Software, and the web   *
-	*     in a way that works out of the box for all.     *
-	*=====================================================*
-	*=====================================================*
-	' 
-	echo '
-	if you are reading this:
-	You already have a working system, these scripts are recommended, 
-	but purely optional. They will help you with server administration,
-	installing programming environments, configuring security and privacy
-	software, advanced system administration software, and some software
-	which is not yet within the Debian ecosystem.
-	Do you wish to continue?
-	' 
+	msg='
+	*===================================================================* \n
+	   This is a set of post-install scripts which are    \n
+	  designed to preconfigure some useful tools related  \n
+	   to content creation, Free Software, and the web    \n
+	     in a way that works out of the box for all.      \n
+	*===================================================================* \n
+	*===================================================================* \n
+	if you are reading this:  \n
+	You already have a working system, these scripts are recommended,  \n
+	but purely optional. They will help you with server administration, \n
+	installing programming environments, configuring security and privacy \n
+	software, advanced system administration software, and some software \n
+	which is not yet within the Debian ecosystem. \n
+	Do you wish to continue? \n
+	'
 	t=false
-	read -p response
-	if [$response=='Y' -o $response=='y' -o $response=='yes' -o $response=='Yes' -o $response=='YES'] 
+	echo -e $msg
+	read -p yesno
+	if ["$yesno" -eq 'Y' -o "$yesno" -eq 'y' -o "$yesno" -eq 'yes' -o "$yesno" -eq 'Yes' -o "$yesno" -eq 'YES']
 	then
 		$t=true
-	elif [$response=='N' -o $response=='n' -o $response=='no' -o $response=='No' -o $response=='NO'] 
+	elif ["$yesno" -eq 'N' -o "$yesno" -eq 'n' -o "$yesno" -eq 'no' -o "$yesno" -eq 'No' -o "$yesno" -eq 'NO']
 	then
-		$t=false
+		t=false
 		echo '
 		\$runonce=1
 		'  >> .postinst.conf
 	else
-		$t=false
-		read response
+		t=false
+#		read 
 	fi
 	return $t
 }
