@@ -34,6 +34,8 @@ INSTALL_TOR_SUITE(){
 	echo "Tor torarm, and privoxy have been installed successfully."
 	echo "[*] Installing TorChat"
 	sudo apt-get install torchat
+	echo "[*] Installing Pidgin and Pidgin-OTR"
+	sudo apt-get install pidgin-otr
 	echo "Torchat has been installed successfully."
 }
 

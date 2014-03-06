@@ -33,6 +33,12 @@ INSTALL_FIREWALL_CONFIG_TOOLS(){
 	    }
 	    # outgoing connections are not limited
 	    chain OUTPUT policy ACCEPT;
+#	    chain OUTPUT{
+#	        # Do not redirect RFC1918, except VirtualAddrNetwork (10.192.0.0/10)
+#	        daddr (10.0.0.0/9 10.128.0.0/10 172.16.0.0/12 192.168.0.0/16) ACCEPT;
+#	        proto tcp syn REDIRECT to-ports 9040; # TransPort
+#	    }
+#	    table FORWARD policy DROP;
 	}
 	# established/related connections
 	domain (ip ip6) table filter chain (INPUT OUTPUT) mod state state (ESTABLISHED RELATED) ACCEPT;
@@ -49,7 +55,7 @@ INSTALL_FIREWALL_CONFIG_TOOLS(){
 		ACCEPT;
 		}
 	}
-	# FORWARD chain REJECT
+	FORWARD chain REJECT
 	domain (ip ip6) table filter chain FORWARD REJECT;
 	# log all other INPUT
 	domain (ip ip6) table filter chain INPUT {
