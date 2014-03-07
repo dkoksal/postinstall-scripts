@@ -34,8 +34,17 @@ INSTALL_TOR_SUITE(){
 	echo "Tor torarm, and privoxy have been installed successfully."
 	echo "[*] Installing TorChat"
 	sudo apt-get install torchat
-	echo "[*] Installing Pidgin and Pidgin-OTR"
-	sudo apt-get install pidgin-otr
 	echo "Torchat has been installed successfully."
+	echo "[*] Installing Pidgin and Pidgin-OTR"
+	sudo apt-get install pidgin-otr 
+	echo "[*] Integrating Pidgin with Gnome-Keyring"
+	wget https://code.google.com/p/pidgin-gnome-keyring/downloads/detail?name=pidgin-gnome-keyring_1.18-1_amd64.deb
+	sudo dpkg -i pidgin-gnome-keyring_1.18-1_amd64.deb
+	echo "[*] Pidgin and Pidgin-OTR are now installed. 
+	
+	Be sure to exercise personal discretion when using thse tools.
+	No tool can be arelied upon to protect your identity 100%. However,
+	with care, these tools can be used to communicate safely in many cases
+	where that would otherwise not be possible."
 }
 
