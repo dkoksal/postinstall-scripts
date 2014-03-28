@@ -9,20 +9,21 @@ INSTALL_INTRUSION_DETECTION_SYSTEM(){
 	sudo apt-get install suricata oinkmaster
 	echo "[*] Updating Emerging Threats Database"
 	mkdir .suricata
-	echo '
-	#! /bin/sh
-	wget https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
-	tar -xvzf emerging.rules.tar.gz
-	sudo rm /etc/suricata/reference.config
-	sudo rm /etc/suricata/classification.config
-	sudo rm /etc/suricata/rules/
-	sudo rm /etc/suricata/suricata.yaml
+	echo '#! /bin/sh
+wget https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
+tar -xvzf emerging.rules.tar.gz
+t=$(gpg --decrypt ~/.ps.gpg)
+$t | sudo -S rm /etc/suricata/reference.config
+$t | sudo -S rm /etc/suricata/classification.config
+$t | sudo -S rm /etc/suricata/rules/
+$t | sudo -S rm /etc/suricata/suricata.yaml
 
-	sudo ln -s ~/.suricata/rules/reference.config /etc/suricata/reference.config
-	sudo ln -s ~/.suricata/rules/classification.config /etc/suricata/classification.config
-	sudo ln -s ~/.suricata/rules/ /etc/suricata/rules
-	sudo ln -s ~/.suricata/rules/suricata.yaml /etc/suricata/suricata.yaml
-	sudo oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules/
+$t | sudo -S ln -s ~/.suricata/rules/reference.config /etc/suricata/reference.config
+$t | sudo -S ln -s ~/.suricata/rules/classification.config /etc/suricata/classification.config
+$t | sudo -S ln -s ~/.suricata/rules/ /etc/suricata/rules
+$t | sudo -S ln -s ~/.suricata/rules/suricata.yaml /etc/suricata/suricata.yaml
+$t | sudo -S oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules/
+$t = ""
 	' >> ~/.suricata/updateIDS.sh
 	sudo echo "
 	url = https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
@@ -31,7 +32,7 @@ INSTALL_INTRUSION_DETECTION_SYSTEM(){
 	chmod +x ~/.suricata/updateIDS.sh
 	crontab -l > ~/.usercron
 	echo "
-	@reboot	 root ~/.suricata/updateIDS.sh
+	@reboot	~/.suricata/updateIDS.sh
 	" >> ~/.usercron
 	crontab -u $(whoami) ~/.usercron
 }
