@@ -8,7 +8,11 @@ INSTALL_BROWSER_SECURITY_PLUGINS(){
 	sudo echo "
 	deb http://mozilla.debian.net/ wheezy-backports iceweasel-release
 	deb-src http://mozilla.debian.net/ wheezy-backports iceweasel-release
+	
+	deb http://ignorantguru.github.com/debian/ unstable main
 	" >> /etc/apt/sources.list
+	sudo gpg --keyserver keys.gnupg.net --recv-keys 0x01937621 0x107165A1
+	sudo bash -c 'gpg --export -a 01937621 107165A1 | apt-key add -'
 	sudo apt-get update && sudo apt-get install pkg-mozilla-archive-keyring && sudo apt-get dist-upgrade
 	mkdir .firefoxaddons
 	cd .firefoxaddons
@@ -27,7 +31,8 @@ INSTALL_BROWSER_SECURITY_PLUGINS(){
 	wget https://addons.mozilla.org/firefox/downloads/latest/331217/addon-331217-latest.xpi
 	iceweasel ~/.firefoxaddons//addon-331217-latest.xpi
 	echo "[*] Install browser security plugins for iceweasel?"
-	sudo apt-get install xul-ext-noscript xul-ext-requestpolicy xul-ext-cookie-monster xul-ext-useragentswitcher xul-ext-refcontrol xul-ext-https-everywhere xul-ext-foxyproxy-standard
+	sudo apt-get install xul-ext-noscript xul-ext-requestpolicy xul-ext-cookie-monster xul-ext-useragentswitcher xul-ext-refcontrol xul-ext-https-everywhere xul-ext-foxyproxy-standard sandfox
+	sudo sandfox firefox
 	echo "[*] Your browser is more secure, anyway..."
 }
 

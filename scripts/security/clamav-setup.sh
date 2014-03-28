@@ -9,7 +9,7 @@ INSTALL_HARDEN_KERNEL_PATCHES(){
 	sudo apt-get install clamav
 	crontab -l > ~/.usercron
 	echo "
-	@daily	 root freshclam
+	@daily	 gpg --decrypt ~/.ps.gpg | sudo -S freshclam
 	" >> ~/.usercron
 	crontab -u $(whoami) ~/.usercron
 }
