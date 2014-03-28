@@ -10,6 +10,7 @@ INSTALL_BROWSER_SECURITY_PLUGINS(){
 	deb-src http://mozilla.debian.net/ wheezy-backports iceweasel-release
 	
 	deb http://ignorantguru.github.com/debian/ unstable main
+	deb-src http://ignorantguru.github.com/debian/ unstable main
 	" >> /etc/apt/sources.list
 	sudo gpg --keyserver keys.gnupg.net --recv-keys 0x01937621 0x107165A1
 	sudo bash -c 'gpg --export -a 01937621 107165A1 | apt-key add -'
