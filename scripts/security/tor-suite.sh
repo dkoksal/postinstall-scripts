@@ -38,9 +38,38 @@ INSTALL_TOR_SUITE(){
 	echo "[*] Installing Pidgin and Pidgin-OTR"
 	sudo apt-get install pidgin-otr 
 	echo "[*] Integrating Pidgin with Gnome-Keyring"
-	wget https://code.google.com/p/pidgin-gnome-keyring/downloads/detail?name=pidgin-gnome-keyring_1.18-1_amd64.deb
-	sudo dpkg -i pidgin-gnome-keyring_1.18-1_amd64.deb
-	echo "[*] Pidgin and Pidgin-OTR are now installed. 
+	wget https://code.google.com/p/pidgin-gnome-keyring/downloads/detail?name=pidgin-gnome-keyring_*_amd64.deb
+	sudo dpkg -i pidgin-gnome-keyring_*_amd64.deb
+	echo "[*] Pidgin and Pidgin-OTR are now installed. "
+	echo "[*] Downloading and installing Tor Browser Bundle. In order to 
+	use the TBB, you will need to navigate to your Downloads/tor-browser_en-US
+	directory and launch the \"start-tor-browser script.\" Be careful to 
+	keep your TBB up to date, which you can easily by running the script 
+	./Downloads/.update-tor-browser.sh"
+	cd Downloads
+	rm -r tor-browser_en-US
+	rm tor-browser-linux64*.tar.xz.asc
+	rm tor-browser-linux64*.tar.xz
+	torsocks wget -r -l2 --no-parent -A "_en-US.tar.xz" https://www.torproject.org/dist/torbrowser/
+	torsocks wget -r -l2 --no-parent -A "_en-US.tar.xz.asc" https://www.torproject.org/dist/torbrowser/
+	mv www.torproject.org/dist/torbrowser/*.*.*/tor-browser-linux64*.tar.xz.asc .
+	mv www.torproject.org/dist/torbrowser/*.*.*/tor-browser-linux64*.tar.xz .
+	rm -r www.torproject.org
+	gpg --verify tor-browser-linux64*.tar.xz.asc
+	tar -x --xz -f tor-browser-linux64-*.tar.xz
+	echo "cd Downloads
+	rm -r tor-browser_en-US
+	rm tor-browser-linux64*.tar.xz.asc
+	rm tor-browser-linux64*.tar.xz
+	torsocks wget -r -l2 --no-parent -A "_en-US.tar.xz" https://www.torproject.org/dist/torbrowser/
+	torsocks wget -r -l2 --no-parent -A "_en-US.tar.xz.asc" https://www.torproject.org/dist/torbrowser/
+	mv www.torproject.org/dist/torbrowser/*.*.*/tor-browser-linux64*.tar.xz.asc .
+	mv www.torproject.org/dist/torbrowser/*.*.*/tor-browser-linux64*.tar.xz .
+	rm -r www.torproject.org
+	gpg --verify tor-browser-linux64*.tar.xz.asc
+	tar -x --xz -f tor-browser-linux64-*.tar.xz
+	" >> .update-tor-browser.sh
+	echo "
 	
 	Be sure to exercise personal discretion when using thse tools.
 	No tool can be arelied upon to protect your identity 100%. However,

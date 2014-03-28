@@ -18,6 +18,7 @@ source scripts/servers/meshnet.sh
 source scripts/development/game-dev.sh
 source scripts/development/gnome-dev.sh
 source scripts/security/baseline-cleanup.sh
+source scripts/security/apparmor-setup.sh
 source scripts/security/tiger-setup.sh
 INITIAL_PROMPT
 echo $t
@@ -71,6 +72,10 @@ then
 	then
 		CLEANUP_ALL_UNNECESSARY_APPS
 	fi
+	if [ PROMPT $AppArmor[1] ]
+	then
+		SETUP_ALL_APP_ARMOR
+	fi
 	if [ PROMPT $TigerDetection[1] ]
 	then
 		INSTALL_TIGER_SYSTEM_MONITOR
@@ -79,4 +84,4 @@ fi
 echo "
 \$runonce=1
 " >> postinst.conf
-exit 0
+sudo reboot

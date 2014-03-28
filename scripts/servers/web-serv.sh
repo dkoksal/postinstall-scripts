@@ -31,14 +31,15 @@ INSTALL_WEB_SERVER(){
 	fi	
 	echo "[*] Re-Generating user crontab file"
 	echo '#! /bin/sh
-	chroot .WebServ/i386/ mount.sh
-	mount –bind ~/public_html/ ~/.WebServ/i386/var/www
-	chroot .WebServ/i386/ service lighttpd restart
+cd ~/.WebServ
+echo gpg --decrypt ~/.ps.gpg | sudo chroot x86_64/ mount.sh
+echo gpg --decrypt ~/.ps.gpg | sudo mount --bind ~/public_html/ x86_64/var/www
+echo gpg --decrypt ~/.ps.gpg | sudo chroot x86_64/ service lighttpd restart
 	' >> ~/.WebServ/startpws.sh
 	chmod +x ~/.WebServ/startpws.sh
 	crontab -l > ~/.usercron
 	echo "
-	@reboot	 root ~/.startpws.sh
+	@reboot	 ~/.WebServ/startpws.sh
 	" >> ~/.usercron
 	crontab -u $(whoami) ~/.usercron
 	cd ~

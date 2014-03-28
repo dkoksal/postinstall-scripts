@@ -6,11 +6,19 @@ apt-key add /home/Repo.keys
 apt-get update
 apt-get install -q live-boot syslinux
 apt-get install -q linux-image-amd64 && apt-get install -q linux-image-amd64 linux-patch-grsecurity2 gradm2
-apt-get install -q debian-installer-launcher git dselect
+apt-get install -q debian-installer-launcher git dselect python nodejs-dev
 dselect update
 dpkg --set-selections < /home/Package.list
 dselect install
 apt-get clean
+echo "'
+deb http://ftp.us.debian.org/debian/ wheezy main
+deb http://ftp.us.debian.org/debian/ jessie main
+deb http://ftp.us.debian.org/debian/ wheezy-backports main
+deb http://security.debian.org/ wheezy/updates main
+deb http://ftp.us.debian.org/debian/ wheezy-updates main
+'" >> /etc/apt/sources.list
+echo "'APT::Default-Release \"stable\";'" >> /etc/apt/apt.conf
 #cd /home/
 #mkdir .hype
 #temp1=$(pwd)
