@@ -69,8 +69,13 @@ INSTALL_TOR_SUITE(){
 	gpg --verify tor-browser-linux64*.tar.xz.asc
 	tar -x --xz -f tor-browser-linux64-*.tar.xz
 	" >> .update-tor-browser.sh
-	echo "
-	
+	chmod +x .update-tor-browser.sh
+	echo "setting up torified wget script, to use wget with Tor automatically
+	you can type twget with the normal wget options"
+	echo "#! /bin/sh
+torsocks wget $1" >> ~/.twget
+sudo ln -s ~/.twget /bin/twget
+	echo "	
 	Be sure to exercise personal discretion when using thse tools.
 	No tool can be arelied upon to protect your identity 100%. However,
 	with care, these tools can be used to communicate safely in many cases

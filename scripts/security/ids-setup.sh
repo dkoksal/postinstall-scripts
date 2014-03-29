@@ -12,18 +12,16 @@ INSTALL_INTRUSION_DETECTION_SYSTEM(){
 	echo '#! /bin/sh
 wget https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
 tar -xvzf emerging.rules.tar.gz
-t=$(gpg --decrypt ~/.ps.gpg)
-$t | sudo -S rm /etc/suricata/reference.config
-$t | sudo -S rm /etc/suricata/classification.config
-$t | sudo -S rm /etc/suricata/rules/
-$t | sudo -S rm /etc/suricata/suricata.yaml
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S rm /etc/suricata/reference.config
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S rm /etc/suricata/classification.config
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S rm /etc/suricata/rules/
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S rm /etc/suricata/suricata.yaml
 
-$t | sudo -S ln -s ~/.suricata/rules/reference.config /etc/suricata/reference.config
-$t | sudo -S ln -s ~/.suricata/rules/classification.config /etc/suricata/classification.config
-$t | sudo -S ln -s ~/.suricata/rules/ /etc/suricata/rules
-$t | sudo -S ln -s ~/.suricata/rules/suricata.yaml /etc/suricata/suricata.yaml
-$t | sudo -S oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules/
-$t = ""
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S ln -s ~/.suricata/rules/reference.config /etc/suricata/reference.config
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S ln -s ~/.suricata/rules/classification.config /etc/suricata/classification.config
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S ln -s ~/.suricata/rules/ /etc/suricata/rules
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S ln -s ~/.suricata/rules/suricata.yaml /etc/suricata/suricata.yaml
+echo $(gpg --decrypt ~/.ps.gpg) | sudo -S oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules/
 	' >> ~/.suricata/updateIDS.sh
 	sudo echo "
 	url = https://rules.emergingthreatspro.com/open/suricata/emerging.rules.tar.gz
