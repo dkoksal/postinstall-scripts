@@ -51,10 +51,9 @@ echo $(gpg --decrypt ~/.ps.gpg) | sudo -S chroot x86_64/ service lighttpd restar
 	fi	
 	cd ~/public_html/
 	git clone git://gitorious.org/+socialites/statusnet/gnu-social.git
-	chmod a+w gnu-social
-	chmod a+w gnu-social/avatar
-	chmod a+w gnu-social/background
-	chmod a+w gnu-social/file
+	chmod a+w
+	chmod a+w
+	chmod a+w
 	echo "[*] Web server installed."
 	unset $temp
 }

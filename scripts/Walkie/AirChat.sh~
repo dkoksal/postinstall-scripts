@@ -1,0 +1,19 @@
+#! /bin/sh
+$TorSuite[0] = "Tor Stuff"
+$TorSuite[1] = "Install Walkie-Talkie Based Communications using AirChat?
+	"
+$TorSuite[2] = "libcpanplus-perl libhttp-server-simple-perl libcrypt-cbc-perl libcrypt-rijndael-perl librpc-xml-perl libxml-feedpp-perl liblwp-protocol-socks-perl libnet-twitter-lite-perl libnet-server-perl libnet-sslglue-perl fldigi libwww-perl liblwp-protocol-https-perl"
+INSTALL_TOR_SUITE(){
+sudo apt-get install make libcpanplus-perl libhttp-server-simple-perl libcrypt-cbc-perl libcrypt-rijndael-perl librpc-xml-perl libxml-feedpp-perl liblwp-protocol-socks-perl libnet-twitter-lite-perl libnet-server-perl libnet-sslglue-perl fldigi
+sudo apt-get install -t jessie libwww-perl liblwp-protocol-https-perl
+git clone https://github.com/lulzlabs/AirChat.git
+cd AirChat
+perl install-modules-airchat-debian.pl
+cd ~
+echo "#! /bin/sh
+cd $HOME/AirChat/
+perl airchat.pl
+" >> .AirChat.sh
+chmod +x AirChat.sh
+ln -s $HOME/.AirChat.sh /usr/bin/airchat
+
